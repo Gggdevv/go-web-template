@@ -3,7 +3,16 @@ package config
 import "github.com/spf13/viper"
 
 type Config struct {
-	API *API `json:"api"`
+	API   *API   `json:"api"`
+	MySQL *MySQL `json:"mysql"`
+}
+
+type MySQL struct {
+	UserName string `json:"username"`
+	Password string `json:"password"`
+	Database string `json:"database"`
+	Host     string `json:"host"`
+	Port     string `json:"port"`
 }
 
 type API struct {

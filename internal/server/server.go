@@ -8,11 +8,13 @@ import (
 	"net/http"
 
 	"github.com/Gggdevv/go-web-template/config"
+	"github.com/Gggdevv/go-web-template/internal/datastore"
 	"github.com/gin-gonic/gin"
 )
 
 type Server struct {
 	srv *http.Server
+	cfg *config.Config
 
 	engine *gin.Engine
 }
@@ -22,6 +24,7 @@ func NewServer(cfg *config.Config) *Server {
 	addr := fmt.Sprintf("%s:%s", cfg.API.Host, cfg.API.Port)
 	return &Server{
 		engine: engine,
+		cfg:    cfg,
 		srv: &http.Server{
 			Addr:    addr,
 			Handler: engine,
@@ -30,6 +33,10 @@ func NewServer(cfg *config.Config) *Server {
 }
 
 func (server *Server) Start() error {
+	if err := datastore.Init(server.cfg); err != nil {
+		return err
+	}
+
 	group := server.engine.Group("/gorum")
 	server.setupApis(group)
 

@@ -4,4 +4,20 @@ api:
   port: 8080
 
   # The address to listen on
-  host: 0.0.0.0
+  host: 127.0.0.1
+
+mysql:
+  # The address to connect to
+  host: 127.0.0.1
+
+  # The port to connect to
+  port: 3306
+
+  # The username to connect with
+  username: root
+
+  # The password to connect with
+  password: 123456
+
+  # The database to connect to
+  database: testdb
